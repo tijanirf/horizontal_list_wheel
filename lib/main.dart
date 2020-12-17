@@ -55,6 +55,57 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  List _cardList = [
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 100,
+        width: 100,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Text('Title 0'),
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 100,
+        width: 100,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Text('Title 1'),
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 100,
+        width: 100,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Text('Title 2'),
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: 100,
+        width: 100,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Colors.grey),
+        ),
+        child: Text('Title 3'),
+      ),
+    ),
+  ];
+
   _toggleList() {
     setState(() {
       isNormalList = !isNormalList;
@@ -67,8 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
       direction: Axis.horizontal,
       perspective: 0.005,
       itemExtent: 100,
+      childCount: 10,
       childDelegate: ListWheelChildBuilderDelegate(
-        childCount: 10,
         builder: (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -94,32 +145,9 @@ class _MyHomePageState extends State<MyHomePage> {
       perspective: 0.005,
       itemExtent: 100,
       childDelegate: ListWheelChildLoopingListDelegate(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey),
-              ),
-              child: Text('Title 1'),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey),
-              ),
-              child: Text('Title 2'),
-            ),
-          ),
-        ],
+        children: List.generate(_cardList.length, (index) {
+          return _cardList[index];
+        }),
       ),
     );
   }

@@ -10,6 +10,7 @@ class HorizontalListWheel extends StatelessWidget {
   final double offAxisFraction;
   final double perspective;
   final double diameterRatio;
+  final int childCount;
 
   const HorizontalListWheel({
     Key key,
@@ -19,6 +20,7 @@ class HorizontalListWheel extends StatelessWidget {
     this.offAxisFraction = 0,
     this.diameterRatio = RenderListWheelViewport.defaultDiameterRatio,
     this.perspective = RenderListWheelViewport.defaultPerspective,
+    this.childCount,
     @required this.itemExtent,
     @required this.childDelegate,
   }) : super(key: key);
@@ -35,6 +37,7 @@ class HorizontalListWheel extends StatelessWidget {
         perspective: perspective,
         diameterRatio: diameterRatio,
         childDelegate: ListWheelChildBuilderDelegate(
+          childCount: childCount,
           builder: (context, index) {
             return RotatedBox(
               quarterTurns: direction == Axis.horizontal ? 1 : 0,
