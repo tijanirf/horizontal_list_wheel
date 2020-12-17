@@ -31,6 +31,13 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final FixedExtentScrollController _scrollController =
       FixedExtentScrollController();
+  bool isNormalList;
+
+  @override
+  void initState() {
+    isNormalList = true;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,29 +46,80 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: HorizontalListWheel(
-          controller: _scrollController,
-          direction: Axis.horizontal,
-          perspective: 0.005,
-          itemExtent: 100,
-          childDelegate: ListWheelChildBuilderDelegate(
-            childCount: 10,
-            builder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 100,
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey),
-                  ),
-                  child: Text('Title $index'),
-                ),
-              );
-            },
+        child: isNormalList ? _buildNormalList() : _buildCircularList(),
+      ),
+      floatingActionButton: RaisedButton(
+        onPressed: () => _toggleList(),
+        child: Text('Change List'),
+      ),
+    );
+  }
+
+  _toggleList() {
+    setState(() {
+      isNormalList = !isNormalList;
+    });
+  }
+
+  _buildNormalList() {
+    return HorizontalListWheel(
+      controller: _scrollController,
+      direction: Axis.horizontal,
+      perspective: 0.005,
+      itemExtent: 100,
+      childDelegate: ListWheelChildBuilderDelegate(
+        childCount: 10,
+        builder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey),
+              ),
+              child: Text('Title $index'),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  _buildCircularList() {
+    return HorizontalListWheel(
+      controller: _scrollController,
+      direction: Axis.horizontal,
+      perspective: 0.005,
+      itemExtent: 100,
+      childDelegate: ListWheelChildLoopingListDelegate(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey),
+              ),
+              child: Text('Title 1'),
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey),
+              ),
+              child: Text('Title 2'),
+            ),
+          ),
+        ],
       ),
     );
   }
